@@ -3,17 +3,16 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-interface navBarProps {
-    connect: Function
+interface OnClickFunction {
+    (e: React.MouseEvent<HTMLElement>): void;
 }
 
-function TopNavbar({ connect }: navBarProps) {
+interface NavBarProps {
+    chainId: number | undefined,
+    connect: OnClickFunction
+}
 
-    const handleConnectMetamask = (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        console.log('jnhjfjfj')
-    }
-
+function TopNavbar({ chainId, connect }: NavBarProps) {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -23,7 +22,7 @@ function TopNavbar({ connect }: navBarProps) {
                     <Nav className="me-auto">
                     </Nav>
                     <Nav>
-                        <Button onClick={handleConnectMetamask} variant="outline-success">
+                        <Button onClick={connect} variant="outline-success">
                             Connect Metamask
                         </Button>
                     </Nav>
