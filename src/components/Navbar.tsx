@@ -23,7 +23,7 @@ function TopNavbar({ chainId, connect }: NavBarProps) {
                     </Nav>
                     <Nav>
                         <Button onClick={connect} variant="outline-success">
-                            Connect Metamask
+                            CONNECT
                         </Button>
                     </Nav>
                 </Navbar.Collapse>
