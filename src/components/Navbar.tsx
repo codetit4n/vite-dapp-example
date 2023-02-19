@@ -1,6 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 interface OnClickFunction {
@@ -8,25 +7,22 @@ interface OnClickFunction {
 }
 
 interface NavBarProps {
-    chainId: number | undefined,
-    connect: OnClickFunction
+    connect: OnClickFunction,
+    address: string | undefined
 }
 
-function TopNavbar({ chainId, connect }: NavBarProps) {
+function TopNavbar({ connect, address }: NavBarProps) {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href="/">Vite DApp Example</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                    </Nav>
-                    <Nav>
+                {
+                    address ?
+                        <span className='showAddress'>Connected: {address}</span> :
                         <Button onClick={connect} variant="outline-success">
                             CONNECT
                         </Button>
-                    </Nav>
-                </Navbar.Collapse>
+                }
             </Container>
         </Navbar>
     );
