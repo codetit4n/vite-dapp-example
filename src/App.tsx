@@ -1,24 +1,11 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import TopNavbar from "./components/Navbar"
-import eth from './assets/eth-logo-animated.gif'
+import EthGif from './assets/eth-logo-animated.gif'
 import './App.css'
 import LoadingSpinner from "./components/LoadingSpinner";
-
-interface OnClickFunction {
-  (e: React.MouseEvent<HTMLElement>): void;
-}
-
-class MetamaskError extends Error {
-  code: number;
-  constructor(msg: string, _code: number) {
-    super(msg);
-    this.code = _code;
-  }
-}
-
-const hexToDecimal = (hex: string) => parseInt(hex, 16);
-
+import { OnClickFunction, MetamaskError, hexToDecimal } from './Helpers/helpers'
+import MainContent from "./components/MainContent";
 
 function App() {
 
@@ -38,6 +25,7 @@ function App() {
       setLoader(false)
     })
   }, [])
+
   useEffect(() => {
     window.ethereum.on('accountsChanged', async function (params: string[]) {
       setLoader(true);
@@ -46,9 +34,7 @@ function App() {
     })
   }, [])
 
-  let connect: OnClickFunction;
-
-  connect = async (e: React.MouseEvent<HTMLElement>) => {
+  const connect: OnClickFunction = async (e) => {
     e.preventDefault()
     window.ethereum
       .request({ method: 'eth_requestAccounts' })
@@ -93,13 +79,12 @@ function App() {
           <div>
             {
               currentAddress ?
-                <div>
-                  {/* @todo - content if connection goes fine */}
-                </div> :
-                <div>
-                  <img src={eth} alt="eth animated logo" className="eth" />
+                <MainContent />
+                :
+                <>
+                  <img src={EthGif} alt="eth animated logo" className="eth" />
                   <h2>Connect to the DApp using the CONNECT button (top right)</h2>
-                </div>
+                </>
             }
           </div>
       }

@@ -1,15 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-
-interface OnClickFunction {
-    (e: React.MouseEvent<HTMLElement>): void;
-}
-
-interface NavBarProps {
-    connect: OnClickFunction,
-    address: string | undefined
-}
+import { NavBarProps } from '../Helpers/helpers'
 
 function TopNavbar({ connect, address }: NavBarProps) {
     return (
