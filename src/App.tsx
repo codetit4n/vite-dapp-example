@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     loadWeb3Provider();
-  }, [])
+  }, [chainId, currentAddress])
 
   useEffect(() => {
     window.ethereum.on('chainChanged', async function (params: string) {
@@ -24,7 +24,7 @@ function App() {
       setChainId(hexToDecimal(params))
       setLoader(false)
     })
-  }, [])
+  })
 
   useEffect(() => {
     window.ethereum.on('accountsChanged', async function (params: string[]) {
@@ -32,7 +32,7 @@ function App() {
       setAddress(params[0]);
       setLoader(false);
     })
-  }, [])
+  })
 
   const connect: OnClickFunction = async (e) => {
     e.preventDefault()
@@ -72,7 +72,7 @@ function App() {
 
   return (
     <>
-      <TopNavbar connect={connect} address={currentAddress} />
+      <TopNavbar connect={connect} address={currentAddress} provider={provider} />
       {
         loader ?
           <LoadingSpinner /> :

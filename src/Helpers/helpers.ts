@@ -1,10 +1,13 @@
+import { ethers } from "ethers";
+
 export interface OnClickFunction {
     (e: React.MouseEvent<HTMLElement>): void;
 }
 
 export interface NavBarProps {
     connect: OnClickFunction,
-    address: string | undefined
+    address: string | undefined,
+    provider: ethers.providers.Web3Provider | undefined
 }
 
 export class MetamaskError extends Error {
