@@ -7,6 +7,7 @@ export interface OnClickFunction {
 export interface NavBarProps {
     connect: OnClickFunction,
     address: string | undefined,
+    chainId: number | undefined,
     provider: ethers.providers.Web3Provider | undefined
 }
 

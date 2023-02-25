@@ -4,12 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavBarProps } from '../Helpers/helpers'
 
-function TopNavbar({ connect, address, provider }: NavBarProps) {
+function TopNavbar({ connect, address, provider, chainId }: NavBarProps) {
 
     const [toShow, setToShow] = useState<string | undefined>(address)
     useEffect(() => {
         load()
-    })
+    }, [address, chainId])
     // ens lookup on the current chain
     const load = async () => {
         if (address && provider) {
@@ -32,6 +32,7 @@ function TopNavbar({ connect, address, provider }: NavBarProps) {
     function DisplayAddressOrEns() {
         return <span className='showAddress'>{toShow}</span>
     }
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
