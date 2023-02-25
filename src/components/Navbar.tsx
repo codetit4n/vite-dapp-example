@@ -1,36 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavBarProps } from '../Helpers/helpers'
+import { DappContext } from '../App';
+import { ethers } from 'ethers';
 
-function TopNavbar({ connect, address, provider, chainId }: NavBarProps) {
+function TopNavbar({ connect }: NavBarProps) {
 
-    const [toShow, setToShow] = useState<string | undefined>(address)
+    const { connectedAddress, currentChainId } = useContext(DappContext)
+    const [toShow, setToShow] = useState<string | undefined>(connectedAddress)
+
     useEffect(() => {
-        load()
-    }, [address, chainId])
+        load();
+    }, [connectedAddress, currentChainId])
+
     // ens lookup on the current chain
     const load = async () => {
-        if (address && provider) {
+        if (connectedAddress != undefined) {
             try {
-                const name = await provider.lookupAddress(address);
+                const prov = new ethers.providers.Web3Provider(window.ethereum);
+                const name = await prov.lookupAddress(connectedAddress);
                 if (name === null) {
-                    setToShow(address);
+                    setToShow(connectedAddress);
                 } else {
                     setToShow(name);
                 }
             } catch (err) {
-                console.log(err);
-                setToShow(address);
+                setToShow(connectedAddress);
             }
-        } else if (address) {
-            setToShow(address);
         }
-    }
-
-    function DisplayAddressOrEns() {
-        return <span className='showAddress'>{toShow}</span>
     }
 
     return (
@@ -38,8 +37,8 @@ function TopNavbar({ connect, address, provider, chainId }: NavBarProps) {
             <Container>
                 <Navbar.Brand href="/">Vite DApp Example</Navbar.Brand>
                 {
-                    address ?
-                        <DisplayAddressOrEns /> :
+                    connectedAddress != undefined ?
+                        <span className='showAddress'>{toShow}</span> :
                         <Button onClick={connect} variant="success">
                             CONNECT
                         </Button>

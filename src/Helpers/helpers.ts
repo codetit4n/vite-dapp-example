@@ -5,10 +5,7 @@ export interface OnClickFunction {
 }
 
 export interface NavBarProps {
-    connect: OnClickFunction,
-    address: string | undefined,
-    chainId: number | undefined,
-    provider: ethers.providers.Web3Provider | undefined
+    connect: OnClickFunction
 }
 
 export class MetamaskError extends Error {
@@ -20,3 +17,5 @@ export class MetamaskError extends Error {
 }
 
 export const hexToDecimal = (hex: string) => parseInt(hex, 16);
+
+export type DappContextType = { connectedAddress: string | undefined, currentChainId: number | undefined };

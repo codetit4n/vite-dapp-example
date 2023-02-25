@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { ethers } from "ethers";
 import TopNavbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import EthGif from './assets/eth-logo-animated.gif'
 import './App.css'
 import LoadingSpinner from "./components/LoadingSpinner";
-import { OnClickFunction, MetamaskError, hexToDecimal } from './Helpers/helpers'
+import { OnClickFunction, MetamaskError, hexToDecimal, DappContextType } from './Helpers/helpers'
 import MainContent from "./components/MainContent";
 
 function App() {
@@ -13,34 +13,31 @@ function App() {
   const [loader, setLoader] = useState(false);
   const [currentAddress, setAddress] = useState<string>();
   const [chainId, setChainId] = useState<number>();
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [metamaskNotPresent, setMetamaskNotPresent] = useState(false);
 
   useEffect(() => {
     loadWeb3Provider();
-  }, [])
+  }, [currentAddress, chainId])
 
   useEffect(() => {
-    try {
+    if (window.ethereum) {
       window.ethereum.on('chainChanged', async function (params: string) {
         setChainId(hexToDecimal(params))
       })
-    } catch (err) {
-      console.log(err);
+    } else {
       setMetamaskNotPresent(true);
     }
-  }, [])
+  }, [window.ethereum])
 
   useEffect(() => {
-    try {
+    if (window.ethereum) {
       window.ethereum.on('accountsChanged', async function (params: string[]) {
         setAddress(params[0]);
       })
-    } catch (err) {
-      console.log(err);
+    } else {
       setMetamaskNotPresent(true);
     }
-  }, [])
+  }, [window.ethereum])
 
   const connect: OnClickFunction = async (e) => {
     e.preventDefault()
@@ -69,7 +66,6 @@ function App() {
       const prov = new ethers.providers.Web3Provider(window.ethereum);
       const network = await prov.getNetwork();
       const chainId = network.chainId;
-      setProvider(prov);
       setChainId(chainId);
       let connectedAccounts = window.ethereum._state.accounts;
       if (connectedAccounts.length > 0) {
@@ -85,8 +81,8 @@ function App() {
 
 
   return (
-    <>
-      <TopNavbar connect={connect} address={currentAddress} chainId={chainId} provider={provider} />
+    <DappContext.Provider value={{ connectedAddress: currentAddress, currentChainId: chainId }}>
+      <TopNavbar connect={connect} />
       {
         loader ?
           <LoadingSpinner /> :
@@ -103,8 +99,10 @@ function App() {
           </div>
       }
       <Footer />
-    </>
+    </DappContext.Provider>
   )
 }
+
+export const DappContext = createContext<DappContextType>({ connectedAddress: undefined, currentChainId: undefined });
 
 export default App
