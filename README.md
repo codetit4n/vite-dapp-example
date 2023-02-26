@@ -1,8 +1,20 @@
 # vite-dapp-example
 
 This project is a simple Decentralized App (DApp) made using Vite + TS + React.
-It can connect to your web3 wallet and also supports ENS lookup.
 
-Feel free to use this as a template to setup your DApps.
+Check it out yourself: https://vite-dapp-example.netlify.app
 
-## Demo
+## Features
+- Connect MetaMask DApp.
+- ENS lookup on different networks.
+- Handle account and chain change without refreshing the whole thing.
+- Excellent Type Safety because if TS.
+- HMR by Vite, way better then CRA.
+- Can be used to setup your next DApp.
+- [MIT License](https://github.com/codeTIT4N/vite-dapp-example/blob/main/LICENSE).
+
+
+## Contributing
+Any and all contributions to make this better are welcome.
+
+Thanks!
