@@ -93,7 +93,7 @@ function App() {
                 :
                 <>
                   <img src={EthGif} alt="eth animated logo" className="eth" />
-                  <h2>Connect to the DApp using the CONNECT button (top right)</h2>
+                  <h2>Connect to the dApp using the CONNECT button (top right)</h2>
                 </>
             }
           </div>

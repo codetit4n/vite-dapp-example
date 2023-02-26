@@ -35,7 +35,7 @@ function TopNavbar({ connect }: NavBarProps) {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="/">Vite DApp Example</Navbar.Brand>
+                <Navbar.Brand href="/">Vite dApp Example</Navbar.Brand>
                 {
                     connectedAddress != undefined ?
                         <span className='showAddress'>{toShow}</span> :
