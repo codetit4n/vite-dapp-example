@@ -5,9 +5,11 @@ Simple dApp(Decentralized Application) made using Vite + React + TypeScript with
 Check it out yourself: https://vite-dapp-example.netlify.app
 
 ## dApp
+
 https://user-images.githubusercontent.com/71545386/221409479-ae1a645e-2e35-4eaa-9aa5-516c4ff03d27.mov
 
 ## Features
+
 - Connect dApp to MetaMask.
 - ENS lookup on different blockchains.
 - Handle account and chain change without refreshing the whole thing.
@@ -17,7 +19,28 @@ https://user-images.githubusercontent.com/71545386/221409479-ae1a645e-2e35-4eaa-
 - Can be used to setup your next dApp.
 - [MIT License](https://github.com/codeTIT4N/vite-dapp-example/blob/main/LICENSE).
 
+## Setup the project for local development
+
+- Step 1: Clone the repo:
+
+```bash
+git clone https://github.com/codeTIT4N/vite-dapp-example
+```
+
+- Step 2: Install `node_modules` using yarn:
+
+```bash
+yarn
+```
+
+- Step 3: Run the development server:
+
+```bash
+yarn run dev
+```
+
 ## Contributing
+
 Any and all contributions to make this better are welcome.
 
 Thanks!
